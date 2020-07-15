@@ -1,0 +1,116 @@
+{
+	"name": "predis_model_other_production",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_other_prod",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Check_keys",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Check_keys').output.childItems",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Other_Prod_Predict",
+							"type": "DatabricksNotebook",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"notebookPath": "/PREDIS/PREDICT_E2E",
+								"baseParameters": {
+									"startDate": {
+										"value": "@concat(pipeline().parameters.current_date, ' 00:00:00')",
+										"type": "Expression"
+									},
+									"returnToFile": {
+										"value": "@concat(item(),'_predict_output.json')",
+										"type": "Expression"
+									},
+									"working_directory": {
+										"value": "@concat('/dbfs/mnt/predis/measurements/year=',substring(pipeline().parameters.current_date,0,4),'/month=',substring(pipeline().parameters.current_date,5,2),'/day=',substring(pipeline().parameters.current_date,8,2),'/MODEL=OTHER_PROD/',item().name)",
+										"type": "Expression"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "predis_databricks",
+								"type": "LinkedServiceReference"
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Check_keys",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "predis_keys_folder",
+						"type": "DatasetReference",
+						"parameters": {
+							"current_date_year": {
+								"value": "@substring(pipeline().parameters.current_date,0,4)",
+								"type": "Expression"
+							},
+							"current_date_month": {
+								"value": "@substring(pipeline().parameters.current_date,5,2)",
+								"type": "Expression"
+							},
+							"current_date_day": {
+								"value": "@substring(pipeline().parameters.current_date,8,2)",
+								"type": "Expression"
+							},
+							"model": {
+								"value": "OTHER_PROD",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true
+					}
+				}
+			}
+		],
+		"parameters": {
+			"current_date": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "PREDIS"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

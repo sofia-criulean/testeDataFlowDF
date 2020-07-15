@@ -1,0 +1,17 @@
+{
+	"name": "sink_sqldb_ccbalab",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ccbalab_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "stg_reporting"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

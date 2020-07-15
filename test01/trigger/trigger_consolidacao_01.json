@@ -1,0 +1,47 @@
+{
+	"name": "trigger_consolidacao_01",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "consolidacao_core_01",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"table_name": [
+						"sapsr3.dfkkop",
+						"sapsr3.dberchz1",
+						"sapsr3.dberchz2",
+						"sapsr3.dfkkextdoc",
+						"sapsr3.dfkkia",
+						"sapsr3.dfkkko",
+						"sapsr3.erch",
+						"sapsr3.erchc",
+						"sapsr3.erdb",
+						"sapsr3.erdk"
+					],
+					"consolidation_date_manual": "0"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2020-03-26T18:56:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						0
+					],
+					"hours": [
+						2
+					]
+				}
+			}
+		}
+	}
+}

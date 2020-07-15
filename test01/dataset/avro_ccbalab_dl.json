@@ -1,0 +1,1247 @@
+{
+	"name": "avro_ccbalab_dl",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dlccbalab_linked_service",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"raw_folder_name": {
+				"type": "string"
+			},
+			"raw_table_name": {
+				"type": "string"
+			},
+			"file_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Avro",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().file_name",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat('src/gg/',dataset().raw_folder_name,'/raw/',dataset().raw_table_name)",
+					"type": "Expression"
+				},
+				"fileSystem": "data"
+			}
+		},
+		"schema": {
+			"type": "record",
+			"name": "HybridDelivery.ClientLibraryJob",
+			"fields": [
+				{
+					"name": "DT_EXECUTION_PERIOD",
+					"type": [
+						"int",
+						"null"
+					]
+				},
+				{
+					"name": "ID_CONTRACT_DSO",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_PARTNER",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "ID_CACCOUNT_NUM",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "ID_CLIENT_INSTALLATION",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "ID_PREMISE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "ID_CONNECTION_OBJECT",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "DT_MOVEOUT_YEAR",
+					"type": [
+						"int",
+						"null"
+					]
+				},
+				{
+					"name": "DT_MOVEIN_YEAR",
+					"type": [
+						"int",
+						"null"
+					]
+				},
+				{
+					"name": "DT_MOVEOUT_YEAR_MONTH",
+					"type": [
+						"int",
+						"null"
+					]
+				},
+				{
+					"name": "DT_MOVEIN_YEAR_MONTH",
+					"type": [
+						"int",
+						"null"
+					]
+				},
+				{
+					"name": "COD_PARTNER_CAE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_PARTNER_CAE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_INSTALLATION_CAE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_INSTALLATION_CAE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_CARACT_INST",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_CARACT_INST",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_ACC_DETER_CAT",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_CONTRACT_ACCOUNT_CATEGORY",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_CONTRACT_ACCOUNT_CATEGORY",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_TARIFF_CATEGORY",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_TARIFF_CATEGORY",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_TIME_CYCLE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_TARIFF_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_SPECIAL_NEEDS_CUSTOMER",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_SPECIAL_NEEDS_CUSTOMER",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_PRIORITY_CUSTOMER",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_PRIORITY_CUSTOMER",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_ZIP_CODE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_SUPPLIER",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_SUPPLIER",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_COUNTY",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_COUNTY",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "DT_LAST_MOD",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "DT_CREATION",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "DT_MOVEOUT",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "DT_MOVEIN",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_POD",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_HOURLY_DISC",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_HOURLY_DISC",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_DISTRICT",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_DISTRICT",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_DIVISION",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_DIVISION",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_CONTRACT_ACCOUNT_DIVISION",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_CONTRACT_ACCOUNT_DIVISION",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_DIRECTION",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_DIRECTION",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_COMPANY",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_COMPANY",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_PARISH",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_PARISH",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "FLG_CANCEL_CONTRACT",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_CITY",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_PAYMENT_METHOD",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_PAYMENT_METHOD",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "ID_MARKET",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "DT_MOVEOUT_MONTH",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "DT_MOVEIN_MONTH",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_EST_METHOD",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_EST_METHOD",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_CALC_BLOCK_MOTIVE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_CALC_BLOCK_MOTIVE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_CUR_CONTRACT_MOTIVE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_MOTIVE_CUR",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_SUPPLY_SECURITY",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_SUPPLY_SECURITY",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "ID_FISCAL",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_VOLTAGE_LEVEL",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_VOLTAGE_LEVEL",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "ID_VOLTAGE_LEVEL_01",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "ID_VOLTAGE_LEVEL_02",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "ID_VOLTAGE_LEVEL_03",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "ID_VOLTAGE_LEVEL_04",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "ID_VOLTAGE_LEVEL_05",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_DOOR_NAME",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_LC_PHASES_NUM",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_LC_PHASES_NUM",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_RE_PHASES_NUM",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_RE_PHASES_NUM",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_DOOR_NUM",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_BILLING_FREQUENCY",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_PARTNER_LONG",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_RESTORATION_PRIOR",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_RESTORATION_PRIOR",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_EXIT_PROC",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_EXIT_PROC",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_STREET",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_IND_SECTOR",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_IND_SECTOR",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_ACTIVITY_SECTOR_CONTRACT",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_ACTIVITY_SECTOR_CONTRACT",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_TRADING_PARTNER",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_TRADING_PARTNER",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_SUPPLEMENT",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "FLG_CAV_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_INSTALL_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_INSTALL_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_PREMISE_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_PREMISE_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_PARTNER_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_PARTNER_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_BUILDING_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_BUILDING_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_GENERATION_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_GENERATION_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "FLG_DGEG_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_TELEMETERING_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_TELEMETERING_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_READ_UNIT",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_READ_UNIT",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_ZONE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_ZONE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_SERV_QUALITY_ZONE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_SERV_QUALITY_ZONE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_POWER_SEGMENT",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_POWER_SEG",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "QTY_CONTRACTS",
+					"type": [
+						"int",
+						"null"
+					]
+				},
+				{
+					"name": "QTY_ANNUAL_CO",
+					"type": [
+						"int",
+						"null"
+					]
+				},
+				{
+					"name": "QTY_CONTRACTED_POWER",
+					"type": [
+						"double",
+						"null"
+					]
+				},
+				{
+					"name": "QTY_INSTALLED_POWER",
+					"type": [
+						"double",
+						"null"
+					]
+				},
+				{
+					"name": "COD_INSTALLED_POWER_UNIT_MEASURE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_INSTALLED_POWER_UNIT_MEASURE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "ID_INPUT",
+					"type": [
+						"int",
+						"null"
+					]
+				},
+				{
+					"name": "DT_INSERT",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "USR_INSERT",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "DT_UPDATE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "USR_UPDATE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_AREA",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_AREA",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_BENEFIT_5A",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_BENEFIT_5A",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_CAT_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_CAT_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_GENERATION_CATEGORY",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_GENERATION_CATEGORY",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_CONTRACT_ACCOUNT_CLASS",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_CONTRACT_ACCOUNT_CLASS",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "DT_VALIDFROM",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "DT_VAL_START",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "DT_VAL_END",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_SUPPLY_STATUS",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_SUPPLY_STATUS",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_SUSP_DOC_STATUS",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_SPROVIDER",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_SPROVIDER",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "FLG_SPECIAL_NEEDS",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "FLG_RPE_CONFIDENTIAL",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "FLG_TS_CONFIDENTIAL",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "FLG_TEMP_INSTALLATION",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "FLG_MOB_INSTALLATION",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "ID_FUNCT_LOC",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_CAE_ORIGIN",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_CAE_ORIGIN",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_COUNTRY",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_COUNTRY",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "QTY_CONNECTION_POWER",
+					"type": [
+						"double",
+						"null"
+					]
+				},
+				{
+					"name": "QTY_INSTALLED_POWER_GEN",
+					"type": [
+						"double",
+						"null"
+					]
+				},
+				{
+					"name": "QTY_REQ_MAX_POWER",
+					"type": [
+						"double",
+						"null"
+					]
+				},
+				{
+					"name": "FLG_SOCIAL_RATE_REFUSAL",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_ACTIVITY_SECTOR_INSTALL",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_ACTIVITY_SECTOR_INSTALL",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_CUSTOMER_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_CUSTOMER_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_PARTNER_PHONE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_PARTNER_MOB_PHONE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_CAE_USE_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_CAE_USE_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "COD_INST_USE_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "REF_INST_USE_TYPE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "FLG_SOCIAL_RATE",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "QTY_POWER_OUTLET",
+					"type": [
+						"double",
+						"null"
+					]
+				}
+			]
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

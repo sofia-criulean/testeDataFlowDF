@@ -1,0 +1,2267 @@
+{
+	"name": "CopyPipeline_dws",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_dws",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_dws",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "SWEG_DATA_REDE.@{item().source.table}"
+								},
+								{
+									"name": "Destination",
+									"value": "data/sitrd/@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "OracleSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "AvroSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_dws",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().source.table"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_dws",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"table": "ALIMENTACAO_RECURSO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEALIMENTACAO_RECURSO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ALIMENTADOR_CORRENTE_CONTIN"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEALIMENTADOR_CORRENTE_CONTIN.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "APOIO_BT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEAPOIO_BT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "APOIO_MT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEAPOIO_MT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "APOIO_NIDIFICACAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEAPOIO_NIDIFICACAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "AREA_OPERACIONAL"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEAREA_OPERACIONAL.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "AREA_OPERACIONAL_ANTIGA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEAREA_OPERACIONAL_ANTIGA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "AREA_REDE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEAREA_REDE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ARMACAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEARMACAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ARMARIO_COMANDO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEARMARIO_COMANDO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ARMAZEM"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEARMAZEM.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "AVENCA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEAVENCA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "BARRAMENTO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEBARRAMENTO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "BASE_FUSIVEL_BT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEBASE_FUSIVEL_BT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "BATERIA_CORRENTE_CONTINUA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEBATERIA_CORRENTE_CONTINUA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "BRACO_IP"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEBRACO_IP.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "CABO_GUARDA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDECABO_GUARDA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "CABO_LIGACAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDECABO_LIGACAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "CAIXA_DISTRIBUICAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDECAIXA_DISTRIBUICAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "CAIXA_VISITA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDECAIXA_VISITA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "CELA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDECELA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "CELA_TRANSFORMACAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDECELA_TRANSFORMACAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "CENTRO_CONDUCAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDECENTRO_CONDUCAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "CENTRO_DESPACHO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDECENTRO_DESPACHO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "CHASSIS"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDECHASSIS.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "CIRCUITO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDECIRCUITO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "CIRCUITO_TAMPAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDECIRCUITO_TAMPAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "CIRCUITO_TAMPAO_TELECOM_CEN"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDECIRCUITO_TAMPAO_TELECOM_CEN.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "CIRCUITO_TELECOMUNICACOES"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDECIRCUITO_TELECOMUNICACOES.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "COLUNA_IP_SUSPENSAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDECOLUNA_IP_SUSPENSAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "COMANDO_IP"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDECOMANDO_IP.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "CONSTRUCAO_CIVIL"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDECONSTRUCAO_CIVIL.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "CONTADOR"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDECONTADOR.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "CORTE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDECORTE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "DATA_CENTER"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEDATA_CENTER.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "DATA_ROOM"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEDATA_ROOM.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "DIRECCAO_DESPACHO_COND_ANTI"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEDIRECCAO_DESPACHO_COND_ANTI.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "DIRECCAO_DESPACHO_CONDUCAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEDIRECCAO_DESPACHO_CONDUCAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "DIRECCAO_REDE_CLIENTES"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEDIRECCAO_REDE_CLIENTES.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "DIRECCAO_REDE_CLIENTES_ANTI"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEDIRECCAO_REDE_CLIENTES_ANTI.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "DISJUNTOR"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEDISJUNTOR.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "DISJUNTOR_BT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEDISJUNTOR_BT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "DISJUNTOR_CIM_UID"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEDISJUNTOR_CIM_UID.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "DTC"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEDTC.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "EDIFICIO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEEDIFICIO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENTRADA_SAIDA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENTRADA_SAIDA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_ABERTO_FECHADO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_ABERTO_FECHADO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_ALIMENTACAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_ALIMENTACAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_ALTURA_COLUNA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_ALTURA_COLUNA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_ANDAR_REGULACAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_ANDAR_REGULACAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_APOIADA_SUSPENSA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_APOIADA_SUSPENSA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_APOIADO_SUSPENSO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_APOIADO_SUSPENSO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_BOOLEANO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_BOOLEANO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_CLASSIFICACAO_ZONA_QS"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_CLASSIFICACAO_ZONA_QS.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_COLOCACAO_SEGMENTO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_COLOCACAO_SEGMENTO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_COMANDO_BOBINE_DISPARO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_COMANDO_BOBINE_DISPARO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_CONCEPCAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_CONCEPCAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_DIRECCAO_REGIONAL"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_DIRECCAO_REGIONAL.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_DISPONIBILIDADE_CELA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_DISPONIBILIDADE_CELA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_DISPONIBILIDADE_PAINEL"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_DISPONIBILIDADE_PAINEL.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_DTC_TIPO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_DTC_TIPO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_ENROLAMENTO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_ENROLAMENTO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_ESQUEMA_LIGACOES"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_ESQUEMA_LIGACOES.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_FIBRA_OPTICA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_FIBRA_OPTICA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_FUNCAO_APOIO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_FUNCAO_APOIO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_FUNCAO_INTERRUPTOR_BT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_FUNCAO_INTERRUPTOR_BT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_FUNCAO_TROCO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_FUNCAO_TROCO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_HASTES_DESCARGA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_HASTES_DESCARGA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_HYPERNODE_MODE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_HYPERNODE_MODE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_INDICACAO_DEFEITOS"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_INDICACAO_DEFEITOS.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_INDICE_CRITICIDADE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_INDICE_CRITICIDADE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_LIGADO_DESLIGADO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_LIGADO_DESLIGADO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_MATERIAL_CONDUTOR"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_MATERIAL_CONDUTOR.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_MEIO_ISOLANTE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_MEIO_ISOLANTE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_NUMERO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_NUMERO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_NUMERO_FASES"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_NUMERO_FASES.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_ORDEM_TELECOMANDO_IP"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_ORDEM_TELECOMANDO_IP.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_ORIGEM"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_ORIGEM.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_PROPRIETARIO_IP"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_PROPRIETARIO_IP.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_SCC"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_SCC.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_SINCRONO_ASSINCRONO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_SINCRONO_ASSINCRONO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_SISTEMA_COMANDO_CONTRO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_SISTEMA_COMANDO_CONTRO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_SISTEMA_DETECCAO_INTRU"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_SISTEMA_DETECCAO_INTRU.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_SISTEMA_PROTECAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_SISTEMA_PROTECAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_SITUACAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_SITUACAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_SITUACAO_OPERACIONAL"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_SITUACAO_OPERACIONAL.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_SWIF_ORIGIN"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_SWIF_ORIGIN.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_SWIF_SEVERITY"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_SWIF_SEVERITY.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_SWIF_STATUS"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_SWIF_STATUS.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TENSAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TENSAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TENSAO_SA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TENSAO_SA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_ALIMENTACAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_ALIMENTACAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_APOIO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_APOIO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_APOIO_PT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_APOIO_PT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_ARREFECIMENTO_TRA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_ARREFECIMENTO_TRA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_AUTOMATO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_AUTOMATO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_AVENCA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_AVENCA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_BARRAMENTO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_BARRAMENTO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_BASE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_BASE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_CAIXA_VISITA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_CAIXA_VISITA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_CELA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_CELA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_CIRCUITO_TELECOMU"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_CIRCUITO_TELECOMU.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_COLUNA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_COLUNA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_COLUNA_IP"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_COLUNA_IP.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_COMANDO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_COMANDO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_COMANDO_BAT_COND"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_COMANDO_BAT_COND.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_COMANDO_DISJUNTOR"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_COMANDO_DISJUNTOR.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_COMANDO_IP"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_COMANDO_IP.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_COMUTACAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_COMUTACAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_CONSTR_SUBESTACAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_CONSTR_SUBESTACAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_CONSTRUTIVO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_CONSTRUTIVO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_CONSTRUTIVO_TRAN"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_CONSTRUTIVO_TRAN.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_CONSTRUTIVO_TRANS"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_CONSTRUTIVO_TRANS.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_CONTADOR"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_CONTADOR.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_CONTAGEM"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_CONTAGEM.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_CONTROLO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_CONTROLO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_DISJUNTOR"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_DISJUNTOR.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_ELECTROLITO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_ELECTROLITO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_EQUIPAMENTO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_EQUIPAMENTO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_FASE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_FASE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_FIXACAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_FIXACAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_FUNCAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_FUNCAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_GERADOR_PV_PQ"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_GERADOR_PV_PQ.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_IDLA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_IDLA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_INSTALACAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_INSTALACAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_INSTALACAO_PT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_INSTALACAO_PT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_INTERRUPTOR"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_INTERRUPTOR.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_IP"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_IP.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_LIGACAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_LIGACAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_LIGACAO_T"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_LIGACAO_T.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_MACICO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_MACICO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_MODELO_GERADOR"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_MODELO_GERADOR.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_MONTAGEM"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_MONTAGEM.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_MONTAGEM_ESCALAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_MONTAGEM_ESCALAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_MONTAGEM_REACT_NC"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_MONTAGEM_REACT_NC.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_PINCA_AMARRACAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_PINCA_AMARRACAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_PONTO_ENTREGA_ENE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_PONTO_ENTREGA_ENE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_PRODUCAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_PRODUCAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_PRODUTOR"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_PRODUTOR.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_PROPRIETARIO_TERR"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_PROPRIETARIO_TERR.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_PROTECCAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_PROTECCAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_SECCIONADOR"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_SECCIONADOR.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_SECCIONADOR_RA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_SECCIONADOR_RA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_SUBESTACAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_SUBESTACAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_TN_TT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_TN_TT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TIPO_TROCO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TIPO_TROCO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_TRIBLOCO_BASE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_TRIBLOCO_BASE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_UNIDADE_COLOCADA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_UNIDADE_COLOCADA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_VALA_TRAVESSIA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_VALA_TRAVESSIA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ENUM_ZONA_AMBIENTAL"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEENUM_ZONA_AMBIENTAL.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "EQUIPAMENTO_CORTE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEEQUIPAMENTO_CORTE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ERR$1399118892677705"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEERR%241399118892677705.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ERR$1399333024337369"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEERR%241399333024337369.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ERR$1712346995019364"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEERR%241712346995019364.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ERR$2031195314191003"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEERR%242031195314191003.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ERR$2031363207479420"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEERR%242031363207479420.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ERR$2031504590727875"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEERR%242031504590727875.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ERR$881572262083792"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEERR%24881572262083792.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ESCALAO_BATERIA_CONDENSADOR"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEESCALAO_BATERIA_CONDENSADOR.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ESTACAO_REPETIDORA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEESTACAO_REPETIDORA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "EXTRACCAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEEXTRACCAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "EXTREMIDADE_CAIXA_TERMINAL"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEEXTREMIDADE_CAIXA_TERMINAL.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "FUSIVEL_BT_FACAS"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEFUSIVEL_BT_FACAS.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "FUSIVEL_BT_REDE_AEREA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEFUSIVEL_BT_REDE_AEREA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "FUSIVEL_MONO_BT_FACAS"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEFUSIVEL_MONO_BT_FACAS.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "FUSIVEL_MT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEFUSIVEL_MT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "GERADOR"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEGERADOR.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "GERADOR_BT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEGERADOR_BT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "GRUPO_GERADOR_EMERGENCIA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEGRUPO_GERADOR_EMERGENCIA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "HYPERNODE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEHYPERNODE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "IDLA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEIDLA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "INDUTANCIA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEINDUTANCIA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "INJECTOR_TELECOMANDO_CENTRA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEINJECTOR_TELECOMANDO_CENTRA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "INT_APOIO_BT_OPERADOR_DE_T"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEINT_APOIO_BT_OPERADOR_DE_T.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "INT_APOIO_MT_TROCO_MT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEINT_APOIO_MT_TROCO_MT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "INT_SECCI_MT_REDE_AEREA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEINT_SECCI_MT_REDE_AEREA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "INT_TROCO_MT_CIRCUITO_TELE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEINT_TROCO_MT_CIRCUITO_TELE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "INT_VALA_TROCO_BT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEINT_VALA_TROCO_BT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "INT_VALA_TROCO_MT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEINT_VALA_TROCO_MT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "INT_VALA_TROCO_TELECOM"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEINT_VALA_TROCO_TELECOM.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "INTERRUPTOR"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEINTERRUPTOR.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "INTERRUPTOR_BT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEINTERRUPTOR_BT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "IP_ESPECIAL"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEIP_ESPECIAL.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "JUNCAO_TELECOMUNICACOES"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEJUNCAO_TELECOMUNICACOES.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "LICENCAS_SOFTWARE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDELICENCAS_SOFTWARE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "LICENCIAMENTO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDELICENCIAMENTO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "LIGACAO_BT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDELIGACAO_BT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "LIGACAO_MT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDELIGACAO_MT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "LINHA_BT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDELINHA_BT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "LINHA_MT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDELINHA_MT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "LINHA_MT_CIM_UID"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDELINHA_MT_CIM_UID.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "LOGICAL_PANEL"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDELOGICAL_PANEL.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "LOTEAMENTO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDELOTEAMENTO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "LUGAR_COMERCIAL"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDELUGAR_COMERCIAL.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "LUGAR_COMERCIAL_ANTIGO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDELUGAR_COMERCIAL_ANTIGO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "LUGAR_DISJUNTOR"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDELUGAR_DISJUNTOR.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "MEDIDAS"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEMEDIDAS.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "OBRA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEOBRA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "OPERADOR_TELECOMUNICACOES"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEOPERADOR_TELECOMUNICACOES.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ORGAO_COMANDO_IP"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEORGAO_COMANDO_IP.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "PAINEL"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEPAINEL.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "PONTO_ENTREGA_ENERGIA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEPONTO_ENTREGA_ENERGIA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "POSTO_OPERACAO_SUPERVISAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEPOSTO_OPERACAO_SUPERVISAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "POSTO_SECCI_CORTE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEPOSTO_SECCI_CORTE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "PRODUTOR_CENTRAL"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEPRODUTOR_CENTRAL.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "PROT_SOBRETENS_DISRUPT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEPROT_SOBRETENS_DISRUPT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "PROTECCAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEPROTECCAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "PSC_ATMT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEPSC_ATMT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "PT_PTS"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEPT_PTS.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "PTC"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEPTC.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "QUADRO_BT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEQUADRO_BT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "RAIZ_CIRCUITO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDERAIZ_CIRCUITO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "RAMAL_COMERCIAL"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDERAMAL_COMERCIAL.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "REACTANCIA_NEUTRO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEREACTANCIA_NEUTRO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "REDE_ELECTRICA$LINK"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEREDE_ELECTRICA%24LINK.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "REDE_ELECTRICA$NODE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEREDE_ELECTRICA%24NODE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "REDE_ELECTRICA$PATH"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEREDE_ELECTRICA%24PATH.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "REDE_ELECTRICA$PL"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEREDE_ELECTRICA%24PL.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "RESISTENCIA_NEUTRO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDERESISTENCIA_NEUTRO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "RSFGC"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDERSFGC.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SCH_FUSIVEL_MT_SOMBRA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESCH_FUSIVEL_MT_SOMBRA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SCH_PONTO_CONTROLE_MT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESCH_PONTO_CONTROLE_MT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SCH_TRANSFORMADOR_AT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESCH_TRANSFORMADOR_AT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SECCIONADOR"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESECCIONADOR.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SECCIONADOR_BT_REDE_AEREA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESECCIONADOR_BT_REDE_AEREA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SECCIONADOR_MT_REDE_AEREA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESECCIONADOR_MT_REDE_AEREA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SEGMENTO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESEGMENTO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SINALIZADOR_CAPACITIVO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESINALIZADOR_CAPACITIVO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SIST_COMANDO_IP"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESIST_COMANDO_IP.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SIST_IP"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESIST_IP.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SISTEMA_COMUNICACOES"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESISTEMA_COMUNICACOES.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SISTEMA_RETENCAO_OLEO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESISTEMA_RETENCAO_OLEO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SISTEMA_SA_CA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESISTEMA_SA_CA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SISTEMA_SENSORIZACAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESISTEMA_SENSORIZACAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SISTEMAS_CIBERSEGURANCA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESISTEMAS_CIBERSEGURANCA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SISTEMAS_GESTAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESISTEMAS_GESTAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SISTEMAS_OPERATIVOS"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESISTEMAS_OPERATIVOS.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SISTEMAS_TECNICOS"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESISTEMAS_TECNICOS.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SUBESTACAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESUBESTACAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SUBESTACAO_CLIENTE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESUBESTACAO_CLIENTE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SUBESTACAO_REN"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESUBESTACAO_REN.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SWG_DSN_SCHEME_RELATIONSHIP"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESWG_DSN_SCHEME_RELATIONSHIP.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SWIF_INFO_FLAG"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESWIF_INFO_FLAG.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SYNC_CONTAINED_GEOM"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESYNC_CONTAINED_GEOM.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SYNC_DELETES"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESYNC_DELETES.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SYNC_DIMENSIONING_METADATA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESYNC_DIMENSIONING_METADATA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SYNC_ENUMERATORS"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESYNC_ENUMERATORS.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SYNC_ERROR_LOG_METADATA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESYNC_ERROR_LOG_METADATA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SYNC_EXTERNAL_NAMES"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESYNC_EXTERNAL_NAMES.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SYNC_HETERO_JOIN_METADATA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESYNC_HETERO_JOIN_METADATA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SYNC_MANIFOLD_TO_NETWORK"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESYNC_MANIFOLD_TO_NETWORK.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SYNC_MAP"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESYNC_MAP.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SYNC_MAP_TYPE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESYNC_MAP_TYPE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SYNC_METADATA_INFO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESYNC_METADATA_INFO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SYNC_OWNER"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESYNC_OWNER.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SYNC_SDO_INDEXES"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESYNC_SDO_INDEXES.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "SYNC_STAGE_METADATA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDESYNC_STAGE_METADATA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "TERRA_PROTECCAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDETERRA_PROTECCAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "TERRA_SERVICO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDETERRA_SERVICO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "TRANSFORMADOR"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDETRANSFORMADOR.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "TRANSFORMADOR_CIM_UID"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDETRANSFORMADOR_CIM_UID.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "TRANSFORMADOR_EQUIVALENTE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDETRANSFORMADOR_EQUIVALENTE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "TRANSFORMADOR_INTENSIDADE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDETRANSFORMADOR_INTENSIDADE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "TRANSFORMADOR_PT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDETRANSFORMADOR_PT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "TRANSFORMADOR_TENSAO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDETRANSFORMADOR_TENSAO.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "TROCO_BT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDETROCO_BT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "TROCO_MT"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDETROCO_MT.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "TROCO_MT_CIM_UID"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDETROCO_MT_CIM_UID.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "TROCO_TELECOMUNICACOES"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDETROCO_TELECOMUNICACOES.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "UNIDADE_ALIMENTACAO_ININTER"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEUNIDADE_ALIMENTACAO_ININTER.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "UNIDADE_REDE"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEUNIDADE_REDE.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "VALA"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEVALA.txt"
+						}
+					},
+					{
+						"source": {
+							"table": "ZONA_SERVICO"
+						},
+						"destination": {
+							"fileName": "SWEG_DATA_REDEZONA_SERVICO.txt"
+						}
+					}
+				]
+			}
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

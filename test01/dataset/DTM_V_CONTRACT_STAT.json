@@ -1,0 +1,17 @@
+{
+	"name": "DTM_V_CONTRACT_STAT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ccbalab_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DTM_V_CONTRACT_STAT"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

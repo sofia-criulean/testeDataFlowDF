@@ -1,0 +1,13 @@
+{
+	"name": "databricks_ccbalab",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "https://westeurope.azuredatabricks.net",
+			"existingClusterId": "1226-152203-slope326",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkNDQkFMQUItREFUQUZBQ1RPUlktMDFfOTg4NzA4NjYtYjAwNS00NDM0LTgxYmQtYjA2NjllZTkzODE5Ig0KfQ=="
+		}
+	}
+}

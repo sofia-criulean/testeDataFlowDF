@@ -1,0 +1,44 @@
+{
+	"name": "cf13",
+	"properties": {
+		"activities": [
+			{
+				"name": "Main_Script_cf13",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/ex92795@edp.pt/CF13/Main_Script",
+					"baseParameters": {
+						"parameter_ref_date": {
+							"value": "@pipeline().parameters.ref_date",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks_ccbalab",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"ref_date": {
+				"type": "string",
+				"defaultValue": "2020-01-06"
+			}
+		},
+		"folder": {
+			"name": "CF13"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

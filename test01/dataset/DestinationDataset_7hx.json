@@ -1,0 +1,51 @@
+{
+	"name": "DestinationDataset_7hx",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ccbalab_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "id",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "log_type",
+				"type": "nvarchar"
+			},
+			{
+				"name": "component_type",
+				"type": "nvarchar"
+			},
+			{
+				"name": "component_name",
+				"type": "nvarchar"
+			},
+			{
+				"name": "component_attribute",
+				"type": "nvarchar"
+			},
+			{
+				"name": "information",
+				"type": "text"
+			},
+			{
+				"name": "user_cod",
+				"type": "nvarchar"
+			},
+			{
+				"name": "sql_errm",
+				"type": "text"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "df_log"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

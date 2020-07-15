@@ -1,0 +1,19 @@
+{
+	"name": "snow",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://edp.service-now.com/api/now/table/",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Basic",
+			"userName": "saservicenowp05",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIzODYyYTE3OC1mMTc5LTRjYWEtOWZkOS1mYmU5ZDkzYjM0YmYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

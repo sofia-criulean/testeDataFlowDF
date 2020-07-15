@@ -1,0 +1,19 @@
+{
+	"name": "DestinationDataset_0m9",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dlccbalab_linked_service",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Avro",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "sitrd",
+				"fileSystem": "data"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

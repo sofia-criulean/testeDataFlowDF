@@ -1,0 +1,116 @@
+{
+	"name": "copy_last_modified",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Metadata1",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "dledpdprd01_source_gg_folder",
+						"type": "DatasetReference",
+						"parameters": {
+							"raw_folder_name": "rede-ativa",
+							"raw_table_name": "edp_cffm.cffm_caso"
+						}
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"modifiedDatetimeStart": {
+							"value": "@{adddays(utcnow(),-3)}",
+							"type": "Expression"
+						},
+						"modifiedDatetimeEnd": {
+							"value": "@{adddays(utcnow(),-2)}",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get Metadata1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Metadata1').output.childItems",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "BinarySource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": false
+									}
+								},
+								"sink": {
+									"type": "BinarySink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "dledpdprd01_source_gg_files_binary",
+									"type": "DatasetReference",
+									"parameters": {
+										"raw_folder_name": "rede-ativa",
+										"raw_table_name": "edp_cffm.cffm_caso"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "binary_ccbalab_dl",
+									"type": "DatasetReference",
+									"parameters": {
+										"raw_table_name": "edp_cffm.cffm_caso"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

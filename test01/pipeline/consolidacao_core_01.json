@@ -1,0 +1,254 @@
+{
+	"name": "consolidacao_core_01",
+	"properties": {
+		"activities": [
+			{
+				"name": "Lookup1",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "set_flag_manual_run",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "set_consolidation_date",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "dlccbalab_configtable",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup1').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "If Condition1",
+							"type": "IfCondition",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@contains(pipeline().parameters.table_name, item().table_name)",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "Copy data1",
+										"type": "Copy",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "7.00:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "BinarySource",
+												"storeSettings": {
+													"type": "AzureBlobFSReadSettings",
+													"recursive": true,
+													"modifiedDatetimeStart": {
+														"value": "@{adddays(variables('consolidation_date'),-1)}",
+														"type": "Expression"
+													},
+													"modifiedDatetimeEnd": {
+														"value": "@{variables('consolidation_date')}",
+														"type": "Expression"
+													}
+												}
+											},
+											"sink": {
+												"type": "BinarySink",
+												"storeSettings": {
+													"type": "AzureBlobFSWriteSettings"
+												}
+											},
+											"enableStaging": false
+										},
+										"inputs": [
+											{
+												"referenceName": "dledpcprd01_source_gg_files_binary",
+												"type": "DatasetReference",
+												"parameters": {
+													"raw_folder_name": {
+														"value": "@item().folder_name",
+														"type": "Expression"
+													},
+													"raw_table_name": {
+														"value": "@item().table_name",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "binary_ccbalab_dl",
+												"type": "DatasetReference",
+												"parameters": {
+													"raw_table_name": {
+														"value": "@item().table_name",
+														"type": "Expression"
+													}
+												}
+											}
+										]
+									},
+									{
+										"name": "consolidacao",
+										"type": "DatabricksNotebook",
+										"dependsOn": [
+											{
+												"activity": "Copy data1",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"timeout": "7.00:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"notebookPath": "/consolidacao_daily_run",
+											"baseParameters": {
+												"raw_table_name": {
+													"value": "@item().table_name",
+													"type": "Expression"
+												},
+												"consolidation_date": {
+													"value": "@variables('consolidation_date')",
+													"type": "Expression"
+												},
+												"flag_manual_run": {
+													"value": "@variables('flag_manual_run')",
+													"type": "Expression"
+												}
+											}
+										},
+										"linkedServiceName": {
+											"referenceName": "ccbalab_consolidacao",
+											"type": "LinkedServiceReference"
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "set_consolidation_date",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "consolidation_date",
+					"value": {
+						"value": "@if(equals(pipeline().parameters.consolidation_date_manual,'0'), formatDateTime(utcnow(),'yyyy-MM-ddT02:00:00'), adddays(formatDateTime(pipeline().parameters.consolidation_date_manual,'yyyy-MM-ddT02:00:00'),1))",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "set_flag_manual_run",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "flag_manual_run",
+					"value": {
+						"value": "@if(equals(pipeline().parameters.consolidation_date_manual,'0'), '0','1')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"table_name": {
+				"type": "array",
+				"defaultValue": [
+					"sapsr3.dfkkop",
+					"sapsr3.dberchz1",
+					"sapsr3.dberchz2",
+					"sapsr3.dfkkextdoc",
+					"sapsr3.dfkkia",
+					"sapsr3.dfkkko",
+					"sapsr3.erch",
+					"sapsr3.erchc",
+					"sapsr3.erdb",
+					"sapsr3.erdk"
+				]
+			},
+			"consolidation_date_manual": {
+				"type": "string",
+				"defaultValue": "0"
+			}
+		},
+		"variables": {
+			"source_path": {
+				"type": "String"
+			},
+			"flag_manual_run": {
+				"type": "String"
+			},
+			"consolidation_date": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "CONSOLIDAÇÃO"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

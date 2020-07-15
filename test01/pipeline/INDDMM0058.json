@@ -1,0 +1,53 @@
+{
+	"name": "INDDMM0058",
+	"properties": {
+		"activities": [
+			{
+				"name": "dataflow_INDDMM0058",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "dataflow_INDDMM0058",
+						"type": "DataFlowReference",
+						"parameters": {
+							"reference_date": {
+								"value": "'@{pipeline().parameters.reference_date}'",
+								"type": "Expression"
+							},
+							"indicator_cod": {
+								"value": "'@{pipeline().parameters.indicator_cod_58}'",
+								"type": "Expression"
+							}
+						}
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"reference_date": {
+				"type": "string"
+			},
+			"indicator_cod_58": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "DATAFLOW"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

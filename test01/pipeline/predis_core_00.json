@@ -1,0 +1,301 @@
+{
+	"name": "predis_core_00",
+	"properties": {
+		"activities": [
+			{
+				"name": "Check_folder_models",
+				"type": "GetMetadata",
+				"dependsOn": [
+					{
+						"activity": "Set current_date",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "predis_models_folder",
+						"type": "DatasetReference",
+						"parameters": {
+							"current_date_year": {
+								"value": "@substring(variables('current_date'),0,4)",
+								"type": "Expression"
+							},
+							"current_date_month": {
+								"value": "@substring(variables('current_date'),5,2)",
+								"type": "Expression"
+							},
+							"current_date_day": {
+								"value": "@substring(variables('current_date'),8,2)",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true
+					}
+				}
+			},
+			{
+				"name": "Set current_date",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "current_date",
+					"value": {
+						"value": "@if(empty(pipeline().parameters.ref_timestamp), adddays(utcnow(),-1, 'yyyy-MM-dd'), adddays(formatDateTime(pipeline().parameters.ref_timestamp,'yyyy-MM-dd'),-1, 'yyyy-MM-dd'))",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Validate_models_name",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Check_folder_models",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Check_folder_models').output.childItems",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "IF_MODEL_COGEN",
+							"type": "IfCondition",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@equals(item().name, 'MODEL=COGEN')",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "execute_model_cogeneration",
+										"type": "ExecutePipeline",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"pipeline": {
+												"referenceName": "predis_model_cogeneration",
+												"type": "PipelineReference"
+											},
+											"waitOnCompletion": true,
+											"parameters": {
+												"current_date": {
+													"value": "@variables('current_date')",
+													"type": "Expression"
+												}
+											}
+										}
+									}
+								]
+							}
+						},
+						{
+							"name": "IF_MODEL_HIDRO",
+							"type": "IfCondition",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@equals(item().name, 'MODEL=HIDRO')",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "execute_model_hidro",
+										"type": "ExecutePipeline",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"pipeline": {
+												"referenceName": "predis_model_hidro",
+												"type": "PipelineReference"
+											},
+											"waitOnCompletion": true,
+											"parameters": {
+												"current_date": {
+													"value": "@variables('current_date')",
+													"type": "Expression"
+												}
+											}
+										}
+									}
+								]
+							}
+						},
+						{
+							"name": "IF_MODEL_WIND",
+							"type": "IfCondition",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@equals(item().name, 'MODEL=WF')",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "execute_model_wind",
+										"type": "ExecutePipeline",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"pipeline": {
+												"referenceName": "predis_model_wind",
+												"type": "PipelineReference"
+											},
+											"waitOnCompletion": true,
+											"parameters": {
+												"current_date": {
+													"value": "@variables('current_date')",
+													"type": "Expression"
+												}
+											}
+										}
+									}
+								]
+							}
+						},
+						{
+							"name": "IF_MODEL_OTHER_PROD",
+							"type": "IfCondition",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@equals(item().name, 'MODEL=OTHER_PROD')",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "execute_model_other_prod",
+										"type": "ExecutePipeline",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"pipeline": {
+												"referenceName": "predis_model_other_production",
+												"type": "PipelineReference"
+											},
+											"waitOnCompletion": true,
+											"parameters": {
+												"current_date": {
+													"value": "@variables('current_date')",
+													"type": "Expression"
+												}
+											}
+										}
+									}
+								]
+							}
+						},
+						{
+							"name": "IF_MODEL_SOLAR",
+							"type": "IfCondition",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@equals(item().name, 'MODEL=PV')",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "execute_model_solar",
+										"type": "ExecutePipeline",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"pipeline": {
+												"referenceName": "predis_model_solar",
+												"type": "PipelineReference"
+											},
+											"waitOnCompletion": true,
+											"parameters": {
+												"current_date": {
+													"value": "@variables('current_date')",
+													"type": "Expression"
+												}
+											}
+										}
+									}
+								]
+							}
+						},
+						{
+							"name": "IF_MODEL_REACTIVE",
+							"type": "IfCondition",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@equals(item().name, 'MODEL=REACTIVE')",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "execute_model_reactive",
+										"type": "ExecutePipeline",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"pipeline": {
+												"referenceName": "predis_model_reactive",
+												"type": "PipelineReference"
+											},
+											"waitOnCompletion": true,
+											"parameters": {
+												"current_date": {
+													"value": "@variables('current_date')",
+													"type": "Expression"
+												}
+											}
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"ref_timestamp": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"current_date": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "PREDIS"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

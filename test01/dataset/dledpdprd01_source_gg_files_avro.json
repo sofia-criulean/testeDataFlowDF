@@ -1,0 +1,355 @@
+{
+	"name": "dledpdprd01_source_gg_files_avro",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dledpdprd01",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"raw_folder_name": {
+				"type": "string"
+			},
+			"raw_table_name": {
+				"type": "string"
+			},
+			"file_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Avro",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().file_name",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat('src/gg/', dataset().raw_folder_name,'/raw/',dataset().raw_table_name)",
+					"type": "Expression"
+				},
+				"fileSystem": "data"
+			}
+		},
+		"schema": {
+			"type": "record",
+			"name": "SAPSR3._YGA_TATIVOS",
+			"fields": [
+				{
+					"name": "table",
+					"type": "string"
+				},
+				{
+					"name": "op_type",
+					"type": "string"
+				},
+				{
+					"name": "op_ts",
+					"type": "string"
+				},
+				{
+					"name": "current_ts",
+					"type": "string"
+				},
+				{
+					"name": "pos",
+					"type": "string"
+				},
+				{
+					"name": "primary_keys",
+					"type": {
+						"type": "array",
+						"items": "string"
+					}
+				},
+				{
+					"name": "tokens",
+					"type": {
+						"type": "map",
+						"values": "string"
+					}
+				},
+				{
+					"name": "before",
+					"type": [
+						"null",
+						{
+							"type": "record",
+							"name": "SAPSR3.columns",
+							"fields": [
+								{
+									"name": "MANDT",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "AUFNR",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "VORNR",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "STEUS",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "POS",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "TPLNR",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "EQUNR",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "HEQUI",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "GERNR",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "GERNRNEW",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "MENGE",
+									"type": [
+										"null",
+										"double"
+									]
+								},
+								{
+									"name": "MEINS",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "GERARESIDUOS",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "ROTAVEL",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "CLASSIFICACAO",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "DESTINO",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "VALIDADO",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "TPLNR_GME",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "EQUNR_GME",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "CHARG_GME",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "MATNR",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "MATNR_GME",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "MENGE_GME",
+									"type": [
+										"null",
+										"double"
+									]
+								},
+								{
+									"name": "VALIDADO_GME",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "ABATE",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "TRANSF",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "CREQUEST",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "AEDAT",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "AENAME",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "AEZEIT",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "OBSERV",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "ORIGEM_ABATE",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "ARBPL",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "GARANTIA",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "ALIENAR",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "OABAT",
+									"type": [
+										"null",
+										"string"
+									]
+								},
+								{
+									"name": "SUBST_CREQUEST",
+									"type": [
+										"null",
+										"string"
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "after",
+					"type": [
+						"null",
+						"SAPSR3.columns"
+					]
+				}
+			]
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

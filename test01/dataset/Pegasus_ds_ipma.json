@@ -1,0 +1,17 @@
+{
+	"name": "Pegasus_ds_ipma",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "pegasus_postgresql",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzurePostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "public",
+			"table": "ds_ipma"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

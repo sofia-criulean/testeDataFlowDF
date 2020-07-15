@@ -1,0 +1,85 @@
+{
+	"name": "consolidacao_core_00",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.table_name",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "consolidacao",
+							"type": "DatabricksNotebook",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"notebookPath": "/consolidacao_daily_run",
+								"baseParameters": {
+									"raw_table_name": {
+										"value": "@item()",
+										"type": "Expression"
+									},
+									"consolidation_date": {
+										"value": "@pipeline().parameters.consolidation_date",
+										"type": "Expression"
+									},
+									"flag_manual_run": {
+										"value": "@pipeline().parameters.flag_manual_run",
+										"type": "Expression"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "AzureDatabricks_ccbalab",
+								"type": "LinkedServiceReference"
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"table_name": {
+				"type": "array",
+				"defaultValue": [
+					"sapsr3.dfkkop",
+					"sapsr3.dberchz1",
+					"sapsr3.dberchz2",
+					"sapsr3.dfkkextdoc",
+					"sapsr3.dfkkia",
+					"sapsr3.dfkkko",
+					"sapsr3.erch",
+					"sapsr3.erchc",
+					"sapsr3.erdb",
+					"sapsr3.erdk"
+				]
+			},
+			"consolidation_date": {
+				"type": "string",
+				"defaultValue": "2020-04-09T02:00:00Z"
+			},
+			"flag_manual_run": {
+				"type": "string",
+				"defaultValue": "1"
+			}
+		},
+		"folder": {
+			"name": "CONSOLIDAÇÃO"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

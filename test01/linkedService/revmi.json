@@ -1,0 +1,16 @@
+{
+	"name": "revmi",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlMI",
+		"typeProperties": {
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=revamp-dev-sqlmngi-bda-01.0ef35842cd23.database.windows.net;initial catalog=revamp-dev-bda-db-dwh-01;user id=sqledpuser",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI0NDNjOWM4Ni1iMjhhLTRmNzUtYjRlNi1jNzNlNTE2YmM3YmMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
