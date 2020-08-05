@@ -1,0 +1,19 @@
+{
+	"name": "DestinationDataset_yg7",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dledpcprd01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "src/gg/sit_dump",
+				"fileSystem": "data"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,156 @@
+{
+	"name": "dledpcprd01_raw_avro",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dledpcprd01",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"application_name": {
+				"type": "string"
+			},
+			"table_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Avro",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": {
+					"value": "@concat('src/gg/',dataset().application_name,'/raw/',dataset().table_name)",
+					"type": "Expression"
+				},
+				"fileSystem": "data"
+			}
+		},
+		"schema": {
+			"type": "record",
+			"name": "SAPSR3_SXMSPEMAS",
+			"doc": "Sqoop import of SAPSR3.SXMSPEMAS",
+			"fields": [
+				{
+					"name": "MANDT",
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				{
+					"name": "MSGGUID",
+					"type": [
+						"null",
+						"bytes"
+					]
+				},
+				{
+					"name": "PID",
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				{
+					"name": "OB_SYSTEM",
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				{
+					"name": "OB_NS",
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				{
+					"name": "OB_NAME",
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				{
+					"name": "OB_PARTY",
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				{
+					"name": "OB_PARTY_TYPE",
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				{
+					"name": "OB_PARTY_AGENCY",
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				{
+					"name": "OB_OPERATION",
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				{
+					"name": "IB_SYSTEM",
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				{
+					"name": "IB_NS",
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				{
+					"name": "IB_NAME",
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				{
+					"name": "IB_PARTY",
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				{
+					"name": "IB_PARTY_TYPE",
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				{
+					"name": "IB_PARTY_AGENCY",
+					"type": [
+						"null",
+						"string"
+					]
+				},
+				{
+					"name": "IB_OPERATION",
+					"type": [
+						"null",
+						"string"
+					]
+				}
+			]
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

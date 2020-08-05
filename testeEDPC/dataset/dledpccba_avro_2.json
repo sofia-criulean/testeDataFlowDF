@@ -1,0 +1,19 @@
+{
+	"name": "dledpccba_avro_2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dlccbalab_linked_service",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Avro",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "dataflow_indicator_test/teste_filter_avro",
+				"fileSystem": "data"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

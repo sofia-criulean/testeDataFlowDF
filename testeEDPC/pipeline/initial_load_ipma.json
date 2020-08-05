@@ -1,0 +1,227 @@
+{
+	"name": "initial_load_ipma",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.day_part",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"wildcardFileName": "*",
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "AzurePostgreSQLSink",
+									"writeBatchSize": 10000,
+									"writeBatchTimeout": "00:00:30"
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"name": "latitude",
+												"type": "String"
+											},
+											"sink": {
+												"name": "latitude",
+												"type": "Decimal"
+											}
+										},
+										{
+											"source": {
+												"name": "longitude",
+												"type": "String"
+											},
+											"sink": {
+												"name": "longitude",
+												"type": "Decimal"
+											}
+										},
+										{
+											"source": {
+												"name": "variable",
+												"type": "String"
+											},
+											"sink": {
+												"name": "variable",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "value",
+												"type": "String"
+											},
+											"sink": {
+												"name": "value",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "day",
+												"type": "String"
+											},
+											"sink": {
+												"name": "day",
+												"type": "Int32"
+											}
+										},
+										{
+											"source": {
+												"name": "month",
+												"type": "String"
+											},
+											"sink": {
+												"name": "month",
+												"type": "Int32"
+											}
+										},
+										{
+											"source": {
+												"name": "prediction_ahead",
+												"type": "String"
+											},
+											"sink": {
+												"name": "prediction_ahead",
+												"type": "Decimal"
+											}
+										},
+										{
+											"source": {
+												"name": "prediction_time",
+												"type": "String"
+											},
+											"sink": {
+												"name": "prediction_time",
+												"type": "DateTime"
+											}
+										},
+										{
+											"source": {
+												"name": "surface",
+												"type": "String"
+											},
+											"sink": {
+												"name": "surface",
+												"type": "Decimal"
+											}
+										},
+										{
+											"source": {
+												"name": "timestamp",
+												"type": "String"
+											},
+											"sink": {
+												"name": "timestamp",
+												"type": "DateTime"
+											}
+										},
+										{
+											"source": {
+												"name": "year",
+												"type": "String"
+											},
+											"sink": {
+												"name": "year",
+												"type": "Int32"
+											}
+										}
+									]
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "CSV_dlipmaprd01_output",
+									"type": "DatasetReference",
+									"parameters": {
+										"day_part": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "Pegasus_ds_ipma",
+									"type": "DatasetReference"
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"day_part": {
+				"type": "array",
+				"defaultValue": [
+					"01",
+					"02",
+					"03",
+					"04",
+					"05",
+					"06",
+					"07",
+					"08",
+					"09",
+					"10",
+					"11",
+					"12",
+					"13",
+					"14",
+					"15",
+					"16",
+					"17",
+					"18",
+					"19",
+					"20",
+					"21",
+					"22",
+					"23",
+					"24",
+					"25",
+					"26",
+					"27",
+					"28",
+					"29",
+					"30",
+					"31"
+				]
+			}
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

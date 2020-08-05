@@ -1,0 +1,88 @@
+{
+	"name": "goldengate_load_00",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_initial_load_raw",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AvroSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*.avro"
+						}
+					},
+					"sink": {
+						"type": "AvroSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "AvroWriteSettings",
+							"quoteAllText": true
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "dledpcprd01_initial_load_avro",
+						"type": "DatasetReference",
+						"parameters": {
+							"application_name": {
+								"value": "@pipeline().parameters.application_name",
+								"type": "Expression"
+							},
+							"table_name": {
+								"value": "@pipeline().parameters.table_name",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "dledpcprd01_raw_avro",
+						"type": "DatasetReference",
+						"parameters": {
+							"application_name": {
+								"value": "@pipeline().parameters.application_name",
+								"type": "Expression"
+							},
+							"table_name": {
+								"value": "@pipeline().parameters.table_name",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"application_name": {
+				"type": "string",
+				"defaultValue": "senv-sgcc"
+			},
+			"table_name": {
+				"type": "string",
+				"defaultValue": "sapsr3.sxmspemas"
+			}
+		},
+		"folder": {
+			"name": "GOLDENGATE"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,143 @@
+{
+	"name": "execute_dataflows",
+	"properties": {
+		"activities": [
+			{
+				"name": "execute_INDDMM0053",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "INDDMM0053",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"indicator_cod_53": "INDDMM0053",
+						"reference_date": {
+							"value": "@pipeline().parameters.reference_date",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "execute_INDDMM0055",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "INDDMM0055",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"reference_date": {
+							"value": "@pipeline().parameters.reference_date",
+							"type": "Expression"
+						},
+						"indicator_cod_55": "INDDMM0055"
+					}
+				}
+			},
+			{
+				"name": "execute_INDDMM0056",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "INDDMM0056",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"reference_date": {
+							"value": "@pipeline().parameters.reference_date",
+							"type": "Expression"
+						},
+						"indicator_cod_56": "INDDMM0056"
+					}
+				}
+			},
+			{
+				"name": "execute_INDDMM0058",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "INDDMM0058",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"reference_date": {
+							"value": "@pipeline().parameters.reference_date",
+							"type": "Expression"
+						},
+						"indicator_cod_58": "INDDMM0058"
+					}
+				}
+			},
+			{
+				"name": "Stored Procedure1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "execute_INDDMM0053",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "execute_INDDMM0055",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "execute_INDDMM0056",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "execute_INDDMM0058",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[dataflow_core]"
+				},
+				"linkedServiceName": {
+					"referenceName": "ccbalab_sqldb",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"reference_date": {
+				"type": "string",
+				"defaultValue": "2019-11-30"
+			}
+		},
+		"folder": {
+			"name": "DATAFLOW"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

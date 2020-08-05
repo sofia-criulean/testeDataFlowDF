@@ -1,0 +1,31 @@
+{
+	"name": "dledpdprd01_source_gg_files_binary",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dledpdprd01",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"raw_folder_name": {
+				"type": "string"
+			},
+			"raw_table_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "*",
+				"folderPath": {
+					"value": "@concat('src/gg/',dataset().raw_folder_name,'/raw/',dataset().raw_table_name)",
+					"type": "Expression"
+				},
+				"fileSystem": "data"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

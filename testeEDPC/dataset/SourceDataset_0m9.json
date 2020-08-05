@@ -1,0 +1,17 @@
+{
+	"name": "SourceDataset_0m9",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sit_dev",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "SWEG_DATA_REDE",
+			"table": "BASE_FUSIVEL_BT"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

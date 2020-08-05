@@ -1,0 +1,171 @@
+{
+	"name": "dlccbalab_json",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dlccbalab_linked_service",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"cw_dir": {
+				"type": "string"
+			},
+			"cw_fileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().cw_fileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().cw_dir",
+					"type": "Expression"
+				},
+				"fileSystem": "data/random"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"source": {
+					"type": "object",
+					"properties": {
+						"tableName": {
+							"type": "string"
+						},
+						"created_on": {
+							"type": "string"
+						},
+						"updated_on": {
+							"type": "string"
+						},
+						"mappings": {
+							"type": "object"
+						}
+					}
+				},
+				"destination": {
+					"type": "object",
+					"properties": {
+						"fileName": {
+							"type": "string"
+						}
+					}
+				},
+				"initial_load": {
+					"type": "object",
+					"properties": {
+						"flag": {
+							"type": "string"
+						}
+					}
+				},
+				"result": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"u_name": {
+								"type": "string"
+							},
+							"u_group_contains": {
+								"type": "string"
+							},
+							"u_titulo_defecto": {
+								"type": "string"
+							},
+							"u_require_ci": {
+								"type": "string"
+							},
+							"u_resolution_time": {
+								"type": "string"
+							},
+							"sys_updated_on": {
+								"type": "string"
+							},
+							"u_company_contains": {
+								"type": "string"
+							},
+							"u_company": {
+								"type": "object",
+								"properties": {
+									"link": {
+										"type": "string"
+									},
+									"value": {
+										"type": "string"
+									}
+								}
+							},
+							"sys_id": {
+								"type": "string"
+							},
+							"sys_updated_by": {
+								"type": "string"
+							},
+							"sys_created_on": {
+								"type": "string"
+							},
+							"u_it_responsible": {
+								"type": "string"
+							},
+							"u_provider_b": {
+								"type": "string"
+							},
+							"u_first_line": {
+								"type": "string"
+							},
+							"u_visible_cliente": {
+								"type": "string"
+							},
+							"u_inter_empresa": {
+								"type": "string"
+							},
+							"sys_created_by": {
+								"type": "string"
+							},
+							"u_provider": {
+								"type": "string"
+							},
+							"sys_mod_count": {
+								"type": "string"
+							},
+							"sys_tags": {
+								"type": "string"
+							},
+							"u_activo_puc": {
+								"type": "string"
+							},
+							"sys_id2": {
+								"type": "string"
+							},
+							"u_category": {
+								"type": "object",
+								"properties": {
+									"link": {
+										"type": "string"
+									},
+									"value": {
+										"type": "string"
+									}
+								}
+							},
+							"u_id_remedy": {
+								"type": "string"
+							},
+							"u_configuration_item": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,133 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "set_consolidation_date",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "set_flag_manual_run",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"modifiedDatetimeStart": {
+								"value": "@{adddays(variables('consolidation_date'),-1)}",
+								"type": "Expression"
+							},
+							"modifiedDatetimeEnd": {
+								"value": "@{variables('consolidation_date')}",
+								"type": "Expression"
+							}
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "dledpcprd01_source_gg_files_binary",
+						"type": "DatasetReference",
+						"parameters": {
+							"raw_folder_name": {
+								"value": "@pipeline().parameters.folder_name",
+								"type": "Expression"
+							},
+							"raw_table_name": {
+								"value": "@pipeline().parameters.table_name",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "binary_ccbalab_dl",
+						"type": "DatasetReference",
+						"parameters": {
+							"raw_table_name": {
+								"value": "@pipeline().parameters.table_name",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "set_consolidation_date",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "consolidation_date",
+					"value": {
+						"value": "@if(equals(pipeline().parameters.consolidation_date_manual,'0'), formatDateTime(utcnow(),'yyyy-MM-ddT02:00:00'), adddays(formatDateTime(pipeline().parameters.consolidation_date_manual,'yyyy-MM-ddT02:00:00'),1))",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "set_flag_manual_run",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "flag_manual",
+					"value": {
+						"value": "@if(equals(pipeline().parameters.consolidation_date_manual,'0'), '0','1')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"consolidation_date_manual": {
+				"type": "string",
+				"defaultValue": "0"
+			},
+			"folder_name": {
+				"type": "string"
+			},
+			"table_name": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"consolidation_date": {
+				"type": "String"
+			},
+			"flag_manual": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,18 @@
+{
+	"name": "SourceDataset_yg7",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Sftp1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "SftpLocation",
+				"folderPath": "/datadrive"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

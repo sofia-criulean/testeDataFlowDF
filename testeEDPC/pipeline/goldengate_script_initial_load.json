@@ -1,0 +1,52 @@
+{
+	"name": "goldengate_script_initial_load",
+	"properties": {
+		"activities": [
+			{
+				"name": "GoldenGate_InitialLoad",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/golden_gate_initial_load",
+					"baseParameters": {
+						"application_name": {
+							"value": "@pipeline().parameters.application_name",
+							"type": "Expression"
+						},
+						"table_name": {
+							"value": "@pipeline().parameters.table_name",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks_ccbalab",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"application_name": {
+				"type": "string",
+				"defaultValue": "senv-sgcc"
+			},
+			"table_name": {
+				"type": "string",
+				"defaultValue": "sapsr3.sxmspemas"
+			}
+		},
+		"folder": {
+			"name": "GOLDENGATE"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

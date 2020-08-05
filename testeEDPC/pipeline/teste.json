@@ -1,0 +1,117 @@
+{
+	"name": "teste",
+	"properties": {
+		"activities": [
+			{
+				"name": "Check_folder_models",
+				"type": "GetMetadata",
+				"dependsOn": [
+					{
+						"activity": "Set current_date",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "predis_keys_folder",
+						"type": "DatasetReference",
+						"parameters": {
+							"current_date_year": {
+								"value": "@substring(variables('current_date'),0,4)",
+								"type": "Expression"
+							},
+							"current_date_month": {
+								"value": "@substring(variables('current_date'),5,2)",
+								"type": "Expression"
+							},
+							"current_date_day": {
+								"value": "@substring(variables('current_date'),8,2)",
+								"type": "Expression"
+							},
+							"model": "badjorz"
+						}
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true
+					}
+				}
+			},
+			{
+				"name": "Set current_date",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "current_date",
+					"value": {
+						"value": "@if(empty(pipeline().parameters.ref_timestamp), adddays(utcnow(),-1, 'yyyy-MM-dd'), adddays(formatDateTime(pipeline().parameters.ref_timestamp,'yyyy-MM-dd'),-1, 'yyyy-MM-dd'))",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Check_folder_models",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Check_folder_models').output.childItems",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "keys",
+								"value": {
+									"value": "@item().name",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"ref_timestamp": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"current_date": {
+				"type": "String"
+			},
+			"keys": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,16 @@
+{
+	"name": "sit_dev",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "Oracle",
+		"typeProperties": {
+			"connectionString": "host=edprac1nprddb1-vip.cpdprd.pt;port=1521;servicename=std1pdb2;user id=EX52347",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJjYzVmZWZhMy0zZTY4LTRmZDQtOTBmNS02YzJlMmQwODg5OGEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

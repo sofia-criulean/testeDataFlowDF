@@ -1,0 +1,38 @@
+{
+	"name": "dataflow_INDDMM0058",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DTM_V_CONTRACT_STAT",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "sink_sqldb_ccbalab",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Filter1"
+				},
+				{
+					"name": "Aggregate1"
+				},
+				{
+					"name": "DerivedColumn1"
+				}
+			],
+			"script": "parameters{\n\treference_date as string,\n\tindicator_cod as string\n}\nsource(output(\n\t\tDT_EXECUTION_PERIOD as integer,\n\t\tID_CONTRACT_DSO as string,\n\t\tCOD_PARTNER as string,\n\t\tID_CACCOUNT_NUM as string,\n\t\tID_CLIENT_INSTALLATION as string,\n\t\tID_PREMISE as string,\n\t\tID_CONNECTION_OBJECT as string,\n\t\tDT_MOVEOUT_YEAR as integer,\n\t\tDT_MOVEIN_YEAR as integer,\n\t\tDT_MOVEOUT_YEAR_MONTH as integer,\n\t\tDT_MOVEIN_YEAR_MONTH as integer,\n\t\tCOD_PARTNER_CAE as string,\n\t\tREF_PARTNER_CAE as string,\n\t\tCOD_INSTALLATION_CAE as string,\n\t\tREF_INSTALLATION_CAE as string,\n\t\tCOD_CARACT_INST as string,\n\t\tREF_CARACT_INST as string,\n\t\tCOD_ACC_DETER_CAT as string,\n\t\tCOD_CONTRACT_ACCOUNT_CATEGORY as string,\n\t\tREF_CONTRACT_ACCOUNT_CATEGORY as string,\n\t\tCOD_TARIFF_CATEGORY as string,\n\t\tREF_TARIFF_CATEGORY as string,\n\t\tCOD_TIME_CYCLE as string,\n\t\tREF_TARIFF_TYPE as string,\n\t\tCOD_SPECIAL_NEEDS_CUSTOMER as string,\n\t\tREF_SPECIAL_NEEDS_CUSTOMER as string,\n\t\tCOD_PRIORITY_CUSTOMER as string,\n\t\tREF_PRIORITY_CUSTOMER as string,\n\t\tCOD_ZIP_CODE as string,\n\t\tCOD_SUPPLIER as string,\n\t\tREF_SUPPLIER as string,\n\t\tCOD_COUNTY as string,\n\t\tREF_COUNTY as string,\n\t\tDT_LAST_MOD as date,\n\t\tDT_CREATION as date,\n\t\tDT_MOVEOUT as date,\n\t\tDT_MOVEIN as date,\n\t\tREF_POD as string,\n\t\tCOD_HOURLY_DISC as string,\n\t\tREF_HOURLY_DISC as string,\n\t\tCOD_DISTRICT as string,\n\t\tREF_DISTRICT as string,\n\t\tCOD_DIVISION as string,\n\t\tREF_DIVISION as string,\n\t\tCOD_CONTRACT_ACCOUNT_DIVISION as string,\n\t\tREF_CONTRACT_ACCOUNT_DIVISION as string,\n\t\tCOD_DIRECTION as string,\n\t\tREF_DIRECTION as string,\n\t\tCOD_COMPANY as string,\n\t\tREF_COMPANY as string,\n\t\tCOD_PARISH as string,\n\t\tREF_PARISH as string,\n\t\tFLG_CANCEL_CONTRACT as string,\n\t\tCOD_CITY as string,\n\t\tCOD_PAYMENT_METHOD as string,\n\t\tREF_PAYMENT_METHOD as string,\n\t\tID_MARKET as string,\n\t\tDT_MOVEOUT_MONTH as string,\n\t\tDT_MOVEIN_MONTH as string,\n\t\tCOD_EST_METHOD as string,\n\t\tREF_EST_METHOD as string,\n\t\tCOD_CALC_BLOCK_MOTIVE as string,\n\t\tREF_CALC_BLOCK_MOTIVE as string,\n\t\tCOD_CUR_CONTRACT_MOTIVE as string,\n\t\tREF_MOTIVE_CUR as string,\n\t\tCOD_SUPPLY_SECURITY as string,\n\t\tREF_SUPPLY_SECURITY as string,\n\t\tID_FISCAL as string,\n\t\tCOD_VOLTAGE_LEVEL as string,\n\t\tREF_VOLTAGE_LEVEL as string,\n\t\tID_VOLTAGE_LEVEL_01 as string,\n\t\tID_VOLTAGE_LEVEL_02 as string,\n\t\tID_VOLTAGE_LEVEL_03 as string,\n\t\tID_VOLTAGE_LEVEL_04 as string,\n\t\tID_VOLTAGE_LEVEL_05 as string,\n\t\tCOD_DOOR_NAME as string,\n\t\tCOD_LC_PHASES_NUM as string,\n\t\tREF_LC_PHASES_NUM as string,\n\t\tCOD_RE_PHASES_NUM as string,\n\t\tREF_RE_PHASES_NUM as string,\n\t\tCOD_DOOR_NUM as string,\n\t\tCOD_BILLING_FREQUENCY as string,\n\t\tREF_PARTNER_LONG as string,\n\t\tCOD_RESTORATION_PRIOR as string,\n\t\tREF_RESTORATION_PRIOR as string,\n\t\tCOD_EXIT_PROC as string,\n\t\tREF_EXIT_PROC as string,\n\t\tCOD_STREET as string,\n\t\tCOD_IND_SECTOR as string,\n\t\tREF_IND_SECTOR as string,\n\t\tCOD_ACTIVITY_SECTOR_CONTRACT as string,\n\t\tREF_ACTIVITY_SECTOR_CONTRACT as string,\n\t\tCOD_TRADING_PARTNER as string,\n\t\tREF_TRADING_PARTNER as string,\n\t\tCOD_SUPPLEMENT as string,\n\t\tFLG_CAV_TYPE as string,\n\t\tCOD_INSTALL_TYPE as string,\n\t\tREF_INSTALL_TYPE as string,\n\t\tCOD_PREMISE_TYPE as string,\n\t\tREF_PREMISE_TYPE as string,\n\t\tCOD_PARTNER_TYPE as string,\n\t\tREF_PARTNER_TYPE as string,\n\t\tCOD_BUILDING_TYPE as string,\n\t\tREF_BUILDING_TYPE as string,\n\t\tCOD_GENERATION_TYPE as string,\n\t\tREF_GENERATION_TYPE as string,\n\t\tFLG_DGEG_TYPE as string,\n\t\tCOD_TELEMETERING_TYPE as string,\n\t\tREF_TELEMETERING_TYPE as string,\n\t\tCOD_READ_UNIT as string,\n\t\tREF_READ_UNIT as string,\n\t\tCOD_ZONE as string,\n\t\tREF_ZONE as string,\n\t\tCOD_SERV_QUALITY_ZONE as string,\n\t\tREF_SERV_QUALITY_ZONE as string,\n\t\tCOD_POWER_SEGMENT as string,\n\t\tREF_POWER_SEG as string,\n\t\tQTY_CONTRACTS as integer,\n\t\tQTY_ANNUAL_CO as integer,\n\t\tQTY_CONTRACTED_POWER as decimal(31,14),\n\t\tQTY_INSTALLED_POWER as decimal(31,14),\n\t\tCOD_INSTALLED_POWER_UNIT_MEASURE as string,\n\t\tREF_INSTALLED_POWER_UNIT_MEASURE as string,\n\t\tID_INPUT as integer,\n\t\tDT_INSERT as timestamp,\n\t\tUSR_INSERT as string,\n\t\tDT_UPDATE as timestamp,\n\t\tUSR_UPDATE as string,\n\t\tCOD_AREA as string,\n\t\tREF_AREA as string,\n\t\tCOD_BENEFIT_5A as string,\n\t\tREF_BENEFIT_5A as string,\n\t\tCOD_CAT_TYPE as string,\n\t\tREF_CAT_TYPE as string,\n\t\tCOD_GENERATION_CATEGORY as string,\n\t\tREF_GENERATION_CATEGORY as string,\n\t\tCOD_CONTRACT_ACCOUNT_CLASS as string,\n\t\tREF_CONTRACT_ACCOUNT_CLASS as string,\n\t\tDT_VALIDFROM as date,\n\t\tDT_VAL_START as date,\n\t\tDT_VAL_END as date,\n\t\tCOD_SUPPLY_STATUS as string,\n\t\tREF_SUPPLY_STATUS as string,\n\t\tCOD_SUSP_DOC_STATUS as string,\n\t\tCOD_SPROVIDER as string,\n\t\tREF_SPROVIDER as string,\n\t\tFLG_SPECIAL_NEEDS as string,\n\t\tFLG_RPE_CONFIDENTIAL as string,\n\t\tFLG_TS_CONFIDENTIAL as string,\n\t\tFLG_TEMP_INSTALLATION as string,\n\t\tFLG_MOB_INSTALLATION as string,\n\t\tID_FUNCT_LOC as string,\n\t\tCOD_CAE_ORIGIN as string,\n\t\tREF_CAE_ORIGIN as string,\n\t\tCOD_COUNTRY as string,\n\t\tREF_COUNTRY as string,\n\t\tQTY_CONNECTION_POWER as decimal(31,14),\n\t\tQTY_INSTALLED_POWER_GEN as decimal(31,14),\n\t\tQTY_REQ_MAX_POWER as decimal(31,14),\n\t\tFLG_SOCIAL_RATE_REFUSAL as string,\n\t\tCOD_ACTIVITY_SECTOR_INSTALL as string,\n\t\tREF_ACTIVITY_SECTOR_INSTALL as string,\n\t\tCOD_CUSTOMER_TYPE as string,\n\t\tREF_CUSTOMER_TYPE as string,\n\t\tCOD_PARTNER_PHONE as string,\n\t\tCOD_PARTNER_MOB_PHONE as string,\n\t\tCOD_CAE_USE_TYPE as string,\n\t\tREF_CAE_USE_TYPE as string,\n\t\tCOD_INST_USE_TYPE as string,\n\t\tREF_INST_USE_TYPE as string,\n\t\tFLG_SOCIAL_RATE as string,\n\t\tQTY_POWER_OUTLET as decimal(31,14)\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source1\nsource1 filter(DT_EXECUTION_PERIOD==toInteger(concat(toString(year(toDate($reference_date))),toString(month(toDate($reference_date))))) && FLG_CANCEL_CONTRACT != 'S' && COD_ACTIVITY_SECTOR_CONTRACT == 'AR' && DT_MOVEIN <= toDate($reference_date) && DT_MOVEOUT > toDate($reference_date)) ~> Filter1\nFilter1 aggregate(groupBy(ID_VOLTAGE_LEVEL_01,\n\t\tID_MARKET),\n\tKPI = sum(QTY_CONTRACTS)) ~> Aggregate1\nAggregate1 derive(cod_group = concatWS(' - ', coalesce(ID_MARKET,'NA'), coalesce(ID_VOLTAGE_LEVEL_01,'NA')),\n\t\tdesc_group = concatWS(' - ', coalesce(ID_MARKET,'NA'), coalesce(ID_VOLTAGE_LEVEL_01,'NA')),\n\t\treference_date = $reference_date,\n\t\tindicator_cod = $indicator_cod) ~> DerivedColumn1\nDerivedColumn1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tmapColumn(\n\t\tvalue = KPI,\n\t\tcod_group,\n\t\tdesc_group,\n\t\treference_date,\n\t\tindicator_cod\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+		}
+	}
+}

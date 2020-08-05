@@ -1,0 +1,36 @@
+{
+	"name": "predis_keys_folder",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dlccbalab_linked_service",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"current_date_year": {
+				"type": "string"
+			},
+			"current_date_month": {
+				"type": "string"
+			},
+			"current_date_day": {
+				"type": "string"
+			},
+			"model": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": {
+					"value": "@concat('predis/measurements/year=',dataset().current_date_year,'/month=',dataset().current_date_month,'/day=',dataset().current_date_day,'/MODEL=',dataset().model)",
+					"type": "Expression"
+				},
+				"fileSystem": "data"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

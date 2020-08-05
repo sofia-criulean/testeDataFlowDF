@@ -1,0 +1,43 @@
+{
+	"name": "execute_consolidacao",
+	"properties": {
+		"activities": [
+			{
+				"name": "execute_consolidacao_core_01",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "consolidacao_core_01",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"parameters": {
+			"consolidation_date_manual": {
+				"type": "string",
+				"defaultValue": "0"
+			},
+			"personal_token": {
+				"type": "string",
+				"defaultValue": "dapi1b379155b5e15af9b8af9ee212121531"
+			}
+		},
+		"variables": {
+			"consolidation_date": {
+				"type": "String"
+			},
+			"flag_manual_run": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "CONSOLIDAÇÃO"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

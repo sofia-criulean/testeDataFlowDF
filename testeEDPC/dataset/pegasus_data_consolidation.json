@@ -1,0 +1,17 @@
+{
+	"name": "pegasus_data_consolidation",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "pegasus_postgresql",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzurePostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "public",
+			"table": "dc_parametrization"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

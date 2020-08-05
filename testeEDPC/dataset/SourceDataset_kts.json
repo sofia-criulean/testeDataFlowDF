@@ -1,0 +1,17 @@
+{
+	"name": "SourceDataset_kts",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sit_dev",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "SWEG_DATA_REDE",
+			"table": "CONTADOR"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

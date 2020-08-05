@@ -1,0 +1,12 @@
+{
+	"name": "integrationRuntime",
+	"properties": {
+		"type": "SelfHosted",
+		"typeProperties": {
+			"linkedInfo": {
+				"resourceId": "/subscriptions/b9da7760-06ab-447f-805e-fa1ac760e2d1/resourcegroups/mduv-dev-bda-rg-01/providers/Microsoft.DataFactory/factories/mduv-dev-bda-data-factory-01/integrationruntimes/integrationruntime",
+				"authorizationType": "Rbac"
+			}
+		}
+	}
+}
